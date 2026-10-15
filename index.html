@@ -84,6 +84,11 @@
   .face.back { transform: rotateY(180deg); }
   .face img { width: 100%; height: 100%; object-fit: contain; border-radius: 3px; background: var(--paper); }
   .hint { text-align: center; }
+  @media (max-height: 740px) and (max-width: 719px) {
+    .letter { padding: 16px 20px; font-size: .95rem; line-height: 1.45; }
+    .flip { height: min(32vh, 300px); height: min(32dvh, 300px); }
+    .duo { gap: 14px; }
+  }
 </style>
 </head>
 <body>
@@ -119,7 +124,7 @@
   <div class="duo">
     <div class="letter" id="letter">
       <p>Dear Nel,</p>
-      <p>thank you for opening the door last weekend, and for it all. I wanted to vibe code a website, and what a better use of my time than doing this for you :)</p>
+      <p>thank you for opening the door last weekend, for letting me make you feel safe, and for telling me to come in when you had every right to tell me to go to hell. And for it all. I wanted to vibe code a website, and what a better use of my time than doing this for you :)</p>
       <p>Yours, zeeb, hipcia</p>
     </div>
     <div>
