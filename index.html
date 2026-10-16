@@ -75,7 +75,8 @@
     box-shadow: 0 10px 26px rgba(47,64,89,.16), 0 1px 3px rgba(47,64,89,.08);
     opacity: 0; transform: translateY(30px) rotate(-1.5deg); transition: opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1); }
   .letter.show { opacity: 1; transform: rotate(-1.5deg); }
-  .letter p { margin: 0 0 .7em; } .letter .sign { margin: 0; font-style: italic; color: var(--ink-soft); text-align: right; }
+  .letter p { margin: 0 0 .7em; text-wrap: pretty; }
+  @media (max-width: 719px) { .letter { font-size: .9rem; line-height: 1.5; padding: 18px 20px; } } .letter .sign { margin: 0; font-style: italic; color: var(--ink-soft); text-align: right; }
   .letter .ps { margin: .8em 0 0; font-size: .82em; color: var(--ink-soft); }
   .flip { perspective: 1200px; width: min(68vw, 320px); height: min(40vh, 380px); height: min(40dvh, 380px); cursor: pointer; opacity: 0; transition: opacity .7s ease; }
   .flip.show { opacity: 1; }
@@ -126,7 +127,7 @@
   <div class="duo">
     <div class="letter" id="letter">
       <p>Dear Nel,</p>
-      <p>ts took me like four hours. thank you for opening the door last weekend when you had every right to tell me to go to hell, and for the sushi and the bottle of wine I should have had more often with you, and for letting me stay and keep you safe. I’m learning to vibe code, so of course the first website had to be yours&nbsp;:)</p>
+      <p>ts took me like four hours. thank you for opening the door last weekend when you had every right to tell me to go to hell, and for the sushi and the bottle of wine I should have had more often with you, and for letting me stay and keep you safe. I’m learning to vibe code, so of course the first website had&nbsp;to&nbsp;be&nbsp;yours&nbsp;:)</p>
       <p class="sign">Yours, zeeb, hipcia</p>
       <p class="ps">p.s. expecting a review report by the council</p>
     </div>
