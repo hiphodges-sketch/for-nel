@@ -75,7 +75,8 @@
     box-shadow: 0 10px 26px rgba(47,64,89,.16), 0 1px 3px rgba(47,64,89,.08);
     opacity: 0; transform: translateY(30px) rotate(-1.5deg); transition: opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1); }
   .letter.show { opacity: 1; transform: rotate(-1.5deg); }
-  .letter p { margin: 0 0 .7em; } .letter p:last-child { margin: 0; font-style: italic; color: var(--ink-soft); text-align: right; }
+  .letter p { margin: 0 0 .7em; } .letter .sign { margin: 0; font-style: italic; color: var(--ink-soft); text-align: right; }
+  .letter .ps { margin: .8em 0 0; font-size: .82em; color: var(--ink-soft); }
   .flip { perspective: 1200px; width: min(68vw, 320px); height: min(40vh, 380px); height: min(40dvh, 380px); cursor: pointer; opacity: 0; transition: opacity .7s ease; }
   .flip.show { opacity: 1; }
   .inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .9s cubic-bezier(.4,0,.2,1); transform: rotateY(-90deg); }
@@ -124,8 +125,9 @@
   <div class="duo">
     <div class="letter" id="letter">
       <p>Dear Nel,</p>
-      <p>thank you for opening the door last weekend, for letting me make you feel safe, and for telling me to come in when you had every right to tell me to go to hell. And for it all. I wanted to vibe code a website, and what a better use of my time than doing this for you :)</p>
-      <p>Yours, zeeb, hipcia</p>
+      <p>thank you for opening the door last weekend, for letting me make you feel safe, and for the bottle of wine I should have had with you a year ago. I wanted to vibe code a website, and what better use of my time than doing this for you :)</p>
+      <p class="sign">Yours, zeeb, hipcia</p>
+      <p class="ps">p.s. expecting a review report by the council</p>
     </div>
     <div>
       <div class="flip" id="flip"><div class="inner" id="inner">
