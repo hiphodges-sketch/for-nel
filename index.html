@@ -195,7 +195,7 @@
     }
   })();
   var inner = document.getElementById('inner'), A = document.getElementById('imgA'), B = document.getElementById('imgB');
-  var cur = 0, angle = 0, busy = false, started = false, timer = null;
+  var cur = 0, angle = 0, busy = false, started = false, auto = false, timer = null;   // auto-advance only begins after the first tap
   A.decoding = 'async'; B.decoding = 'async';
   var capA = document.getElementById('capA'), capB = document.getElementById('capB');
   A.src = PHOTOS[0]; capA.textContent = CAPTIONS[0]; B.src = PHOTOS[1 % PHOTOS.length]; capB.textContent = CAPTIONS[1 % PHOTOS.length];
@@ -203,7 +203,7 @@
   function schedule() { clearTimeout(timer); timer = setTimeout(turn, 3400); }
   function turn() {
     if (busy || !started) return;
-    busy = true; clearTimeout(timer);
+    busy = true; auto = true; clearTimeout(timer);
     var next = (cur + 1) % PHOTOS.length, h = hiddenFace();
     h.src = PHOTOS[next]; (h === A ? capA : capB).textContent = CAPTIONS[next];   // load onto the face nobody can see
     var go = function () {
@@ -218,7 +218,7 @@
           void inner.offsetWidth; inner.style.transition = '';
         }
         busy = false;
-        if (!document.hidden) schedule();
+        if (auto && !document.hidden) schedule();
       };
       inner.addEventListener('transitionend', finish);
       setTimeout(finish, 1150);                           // fallback if transitionend never fires
@@ -227,13 +227,13 @@
   }
   document.getElementById('flip').addEventListener('click', turn);
   document.addEventListener('visibilitychange', function () {
-    if (document.hidden) clearTimeout(timer); else if (started && !busy) schedule();
+    if (document.hidden) clearTimeout(timer); else if (auto && !busy) schedule();
   });
   function reveal() {
     var note = document.getElementById('letter');
     setTimeout(function () { note.classList.add('show'); }, 100);
     setTimeout(function () { document.getElementById('flip').classList.add('show'); inner.style.transform = 'rotateY(0deg)'; }, 500);
-    setTimeout(function () { document.getElementById('hint').classList.add('show'); started = true; schedule(); }, 1800);
+    setTimeout(function () { document.getElementById('hint').classList.add('show'); started = true; }, 1800);
   }
 
 })();
