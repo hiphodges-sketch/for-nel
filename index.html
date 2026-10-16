@@ -43,10 +43,10 @@
   .bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
   main, #confetti { position: relative; z-index: 1; }
   #confetti { position: fixed; }
-  .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .55; animation: drift 26s ease-in-out infinite alternate; }
-  .blob.a { width: 46vmax; height: 46vmax; left: -12vmax; top: -14vmax; background: #ffffff; }
-  .blob.b { width: 38vmax; height: 38vmax; right: -10vmax; top: 18vh; background: #ffe3d2; animation-delay: -9s; animation-duration: 32s; }
-  .blob.c { width: 40vmax; height: 40vmax; left: 10vw; bottom: -18vmax; background: #a9cff2; animation-delay: -17s; animation-duration: 29s; }
+  .blob { position: absolute; border-radius: 50%; opacity: .7; animation: drift 26s ease-in-out infinite alternate; will-change: transform; }
+  .blob.a { width: 60vmax; height: 60vmax; left: -18vmax; top: -22vmax; background: radial-gradient(closest-side, rgba(255,255,255,.85), rgba(255,255,255,0)); }
+  .blob.b { width: 50vmax; height: 50vmax; right: -16vmax; top: 12vh; background: radial-gradient(closest-side, rgba(255,227,210,.8), rgba(255,227,210,0)); animation-delay: -9s; animation-duration: 32s; }
+  .blob.c { width: 54vmax; height: 54vmax; left: 4vw; bottom: -26vmax; background: radial-gradient(closest-side, rgba(169,207,242,.8), rgba(169,207,242,0)); animation-delay: -17s; animation-duration: 29s; }
   @keyframes drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(6vw, 4vh) scale(1.08); } }
   .piece { position: absolute; bottom: -4vh; width: 8px; height: 12px; border-radius: 3px; opacity: 0; background: #fff;
     animation: rise linear infinite; will-change: transform, opacity; }
@@ -58,7 +58,7 @@
     92%  { opacity: .75; }
     100% { transform: translate3d(var(--sway), -110vh, 0) rotate(var(--spin)); opacity: 0; }
   }
-  .floatcat { position: absolute; bottom: -22vh; width: var(--w); border-radius: 12px; opacity: 0; filter: blur(.6px) saturate(.9);
+  .floatcat { position: absolute; bottom: -22vh; width: var(--w); border-radius: 12px; opacity: 0;
     box-shadow: 0 6px 18px rgba(47,64,89,.12); animation: risecat linear infinite; will-change: transform, opacity; }
   @keyframes risecat {
     0%   { transform: translate3d(0, 0, 0) rotate(var(--r0)); opacity: 0; }
@@ -191,21 +191,44 @@
     }
   })();
   var inner = document.getElementById('inner'), A = document.getElementById('imgA'), B = document.getElementById('imgB');
-  var cur = 0, angle = 0, timer;
-  A.src = PHOTOS[0]; B.src = PHOTOS[1];
+  var cur = 0, angle = 0, busy = false, started = false, timer = null;
+  A.decoding = 'async'; B.decoding = 'async';
+  A.src = PHOTOS[0]; B.src = PHOTOS[1 % PHOTOS.length];
+  function hiddenFace() { return (angle / 180) % 2 === 0 ? B : A; }   // the face turned away right now
+  function schedule() { clearTimeout(timer); timer = setTimeout(turn, 3400); }
   function turn() {
-    cur = (cur + 1) % PHOTOS.length; angle += 180;
-    inner.style.transform = 'rotateY(' + angle + 'deg)';
-    var hidden = (angle / 180) % 2 === 0 ? B : A;      // face now turned away
-    setTimeout(function () { hidden.src = PHOTOS[(cur + 1) % PHOTOS.length]; }, 950);
-    clearInterval(timer); timer = setInterval(turn, 3400);
+    if (busy || !started) return;
+    busy = true; clearTimeout(timer);
+    var next = (cur + 1) % PHOTOS.length, h = hiddenFace();
+    h.src = PHOTOS[next];                                 // load onto the face nobody can see
+    var go = function () {
+      cur = next; angle += 180;
+      inner.style.transform = 'rotateY(' + angle + 'deg)';
+      var done = false;
+      var finish = function (e) {
+        if (done || (e && e.target !== inner)) return;
+        done = true; inner.removeEventListener('transitionend', finish);
+        if (angle % 360 === 0) {                          // snap 360 back to 0 so the angle never grows
+          inner.style.transition = 'none'; angle = 0; inner.style.transform = 'rotateY(0deg)';
+          void inner.offsetWidth; inner.style.transition = '';
+        }
+        busy = false;
+        if (!document.hidden) schedule();
+      };
+      inner.addEventListener('transitionend', finish);
+      setTimeout(finish, 1150);                           // fallback if transitionend never fires
+    };
+    if (h.decode) h.decode().then(go, go); else go();
   }
   document.getElementById('flip').addEventListener('click', turn);
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) clearTimeout(timer); else if (started && !busy) schedule();
+  });
   function reveal() {
     var note = document.getElementById('letter');
     setTimeout(function () { note.classList.add('show'); }, 100);
     setTimeout(function () { document.getElementById('flip').classList.add('show'); inner.style.transform = 'rotateY(0deg)'; }, 500);
-    setTimeout(function () { document.getElementById('hint').classList.add('show'); timer = setInterval(turn, 3400); }, 1800);
+    setTimeout(function () { document.getElementById('hint').classList.add('show'); started = true; schedule(); }, 1800);
   }
 
 })();
