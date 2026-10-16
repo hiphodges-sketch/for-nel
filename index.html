@@ -78,6 +78,24 @@
   .letter p { margin: 0 0 .7em; text-wrap: pretty; }
   @media (max-width: 719px) { .letter { font-size: .97rem; line-height: 1.5; padding: 18px 20px; max-width: 384px; } } .letter .sign { margin: 0; font-style: italic; color: var(--ink-soft); text-align: right; }
   .letter .ps { margin: .8em 0 0; font-size: .82em; color: var(--ink-soft); }
+  .letter { position: relative; padding-bottom: 48px !important; }
+  .stamp { position: absolute; right: 10px; bottom: -8px; width: 150px; padding: 7px 6px 6px; box-sizing: border-box;
+    border: 3px double #c8323c; border-radius: 8px; color: #c8323c; text-align: center; text-transform: uppercase;
+    font-family: "Helvetica Neue", Arial, sans-serif; font-style: normal; line-height: 1.05; letter-spacing: .06em;
+    transform: rotate(-11deg); opacity: 0; mix-blend-mode: multiply; pointer-events: none;
+    -webkit-mask-image: radial-gradient(120% 90% at 30% 40%, #000 55%, rgba(0,0,0,.55) 100%); mask-image: radial-gradient(120% 90% at 30% 40%, #000 55%, rgba(0,0,0,.55) 100%); }
+  .stamp span { display: block; }
+  .stamp .s1 { font-size: 1.45rem; font-weight: 800; letter-spacing: .1em; }
+  .stamp .s2 { font-size: .68rem; font-weight: 700; margin-top: 3px; }
+  .stamp .s3 { font-size: .5rem; font-weight: 600; margin-top: 4px; letter-spacing: .04em; opacity: .9; }
+  .stamp.in { animation: stampin .5s cubic-bezier(.2,1.2,.4,1) forwards; }
+  @keyframes stampin {
+    0%   { opacity: 0; transform: rotate(-11deg) scale(1.9); }
+    65%  { opacity: .85; transform: rotate(-11deg) scale(.96); }
+    100% { opacity: .85; transform: rotate(-11deg) scale(1); }
+  }
+  @media (max-width: 719px) { .stamp { width: 132px; right: 8px; bottom: -6px; } .stamp .s1 { font-size: 1.25rem; } .stamp .s2 { font-size: .6rem; } .stamp .s3 { font-size: .46rem; } }
+  @media (prefers-reduced-motion: reduce) { .stamp.in { animation: none; opacity: .85; } }
   .flip { perspective: 1200px; width: min(68vw, 320px); height: min(40vh, 380px); height: min(40dvh, 380px); cursor: pointer; opacity: 0; transition: opacity .7s ease; }
   .flip.show { opacity: 1; }
   .inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .9s cubic-bezier(.4,0,.2,1); transform: rotateY(-90deg); }
@@ -130,6 +148,7 @@
       <p>ts took me like four hours. thank you for opening the door last weekend when you had every right to tell me to go to hell, and for the sushi and the bottle of wine I should have had more often with you, and for letting me stay and keep you safe. I’m learning to vibe code, so of course the first website had&nbsp;to&nbsp;be&nbsp;yours&nbsp;:)</p>
       <p class="sign">Yours, zeeb, hipcia</p>
       <p class="ps">p.s. expecting a review report by the council</p>
+      <div class="stamp" id="stamp" role="img" aria-label="Approved by the council, 16 October 2026"><span class="s1">Approved</span><span class="s2">by the council</span><span class="s3">16 Oct 2026 &middot; ref. LUNA-01</span></div>
     </div>
     <div>
       <div class="flip" id="flip"><div class="inner" id="inner">
@@ -233,6 +252,7 @@
   function reveal() {
     var note = document.getElementById('letter');
     setTimeout(function () { note.classList.add('show'); }, 100);
+    setTimeout(function () { document.getElementById('stamp').classList.add('in'); }, 1700);
     setTimeout(function () { document.getElementById('flip').classList.add('show'); inner.style.transform = 'rotateY(0deg)'; }, 500);
     setTimeout(function () { document.getElementById('hint').classList.add('show'); started = true; }, 1800);
   }
