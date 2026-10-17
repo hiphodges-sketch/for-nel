@@ -78,24 +78,24 @@
   .letter p { margin: 0 0 .7em; text-wrap: pretty; }
   @media (max-width: 719px) { .letter { font-size: .97rem; line-height: 1.5; padding: 18px 20px; max-width: 384px; } } .letter .sign { margin: 0; font-style: italic; color: var(--ink-soft); text-align: right; }
   .letter .ps { margin: .8em 0 0; font-size: .82em; color: var(--ink-soft); }
-  .letter { position: relative; padding-bottom: 54px !important; }
-  .stamp { position: absolute; right: 10px; bottom: -10px; width: 186px; padding: 8px 8px 7px; box-sizing: border-box;
-    border: 4px double #b8202b; border-radius: 9px; color: #b8202b; text-align: center; text-transform: uppercase;
+  .letter { position: relative; padding-bottom: 66px !important; }
+  .stamp { position: absolute; right: 8px; bottom: -14px; width: 224px; padding: 9px 8px 8px; box-sizing: border-box;
+    border: 5px double #b01c27; border-radius: 10px; color: #b01c27; text-align: center; text-transform: uppercase;
     font-family: "Helvetica Neue", Arial, sans-serif; font-style: normal; line-height: 1.05; white-space: nowrap;
     transform: rotate(-11deg); opacity: 0; mix-blend-mode: multiply; pointer-events: none;
-    -webkit-mask-image: radial-gradient(130% 100% at 35% 40%, #000 70%, rgba(0,0,0,.75) 100%); mask-image: radial-gradient(130% 100% at 35% 40%, #000 70%, rgba(0,0,0,.75) 100%); }
+    -webkit-mask-image: radial-gradient(130% 100% at 35% 40%, #000 80%, rgba(0,0,0,.85) 100%); mask-image: radial-gradient(130% 100% at 35% 40%, #000 80%, rgba(0,0,0,.85) 100%); }
   .stamp span { display: block; }
-  .stamp .s1 { font-size: 1.55rem; font-weight: 900; letter-spacing: .07em; }
-  .stamp .s2 { font-size: .74rem; font-weight: 800; letter-spacing: .08em; margin-top: 3px; }
-  .stamp .s3 { font-size: .54rem; font-weight: 700; letter-spacing: .05em; margin-top: 4px; }
+  .stamp .s1 { font-size: 1.9rem; font-weight: 900; letter-spacing: .07em; }
+  .stamp .s2 { font-size: .9rem; font-weight: 900; letter-spacing: .08em; margin-top: 3px; }
+  .stamp .s3 { font-size: .64rem; font-weight: 800; letter-spacing: .05em; margin-top: 4px; }
   .stamp.in { animation: stampin .5s cubic-bezier(.2,1.2,.4,1) forwards; }
   @keyframes stampin {
     0%   { opacity: 0; transform: rotate(-11deg) scale(1.9); }
-    65%  { opacity: .96; transform: rotate(-11deg) scale(.96); }
-    100% { opacity: .96; transform: rotate(-11deg) scale(1); }
+    65%  { opacity: 1; transform: rotate(-11deg) scale(.96); }
+    100% { opacity: 1; transform: rotate(-11deg) scale(1); }
   }
-  @media (max-width: 719px) { .stamp { width: 166px; right: 8px; bottom: -8px; padding: 7px 6px 6px; } .stamp .s1 { font-size: 1.38rem; } .stamp .s2 { font-size: .66rem; } .stamp .s3 { font-size: .48rem; } }
-  @media (prefers-reduced-motion: reduce) { .stamp.in { animation: none; opacity: .96; } }
+  @media (max-width: 719px) { .stamp { width: 200px; right: 6px; bottom: -12px; padding: 8px 6px 7px; } .stamp .s1 { font-size: 1.68rem; } .stamp .s2 { font-size: .8rem; } .stamp .s3 { font-size: .57rem; } }
+  @media (prefers-reduced-motion: reduce) { .stamp.in { animation: none; opacity: 1; } }
   .flip { perspective: 1200px; width: min(68vw, 320px); height: min(40vh, 380px); height: min(40dvh, 380px); cursor: pointer; opacity: 0; transition: opacity .7s ease; }
   .flip.show { opacity: 1; }
   .inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .9s cubic-bezier(.4,0,.2,1); transform: rotateY(-90deg); }
