@@ -100,6 +100,14 @@
   body.spy .spybg { opacity: 1; }
   .bg { transition: opacity 1.1s ease; }
   body { transition: background-color 1.1s ease; }
+  .spybg { background: radial-gradient(90% 70% at 68% 32%, #3b4b68 0%, #161d2c 58%, #0a0e16 100%); }
+  .spybg::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.028) 0 1px, transparent 1px 3px); }
+  body.spy .bg { opacity: .14; }
+  body.spy .note2 { background: #efe3c3; color: #3a2e1f; box-shadow: 0 22px 44px rgba(0,0,0,.55); }
+  body.spy .note2 .ps { color: #7b6549; }
+  body.spy .note2::before { content: 'CLASSIFIED'; position: absolute; top: -13px; right: 16px; font: 800 .68rem/1 "Helvetica Neue", Arial, sans-serif; letter-spacing: .22em; color: #b01c27; border: 2px solid #b01c27; padding: 5px 8px 4px; background: #efe3c3; transform: rotate(5deg); }
+  body.spy .vframe { background: #1c2231; box-shadow: 0 22px 44px rgba(0,0,0,.6); }
+  body.spy .vframe .cap, body.spy .back { color: #c9d3e6; }
   .more { appearance: none; border: 0; cursor: pointer; font: inherit; font-size: .9rem; color: var(--ink); background: rgba(255,255,255,.72);
     padding: .55em 1.1em; border-radius: 999px; box-shadow: 0 4px 14px rgba(47,64,89,.14); opacity: 0; transition: opacity .9s ease; margin-top: 2px; }
   .more.show { opacity: 1; }
