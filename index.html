@@ -29,6 +29,17 @@
     animation: breathe 2.6s ease-in-out infinite;
     transition: transform .25s ease, opacity .45s ease; -webkit-tap-highlight-color: transparent;
   }
+  .big {
+    display: inline-block; text-decoration: none; cursor: pointer; font: inherit;
+    font-size: clamp(1.5rem, 3.2vw + .7rem, 2.3rem); font-weight: 700; color: #fff; text-align: center; max-width: 92vw;
+    background: linear-gradient(135deg, var(--accent), #d9574a);
+    padding: 1.05em 2.1em; border-radius: 999px; margin-bottom: 26px;
+    box-shadow: 0 16px 36px rgba(217,87,74,.4), inset 0 1px 0 rgba(255,255,255,.3);
+    transition: transform .25s ease, opacity .45s ease; -webkit-tap-highlight-color: transparent;
+  }
+  .big:active { transform: scale(.97); }
+  .big.leaving { opacity: 0; transform: scale(.85); pointer-events: none; }
+  #open { font-size: clamp(1.05rem, 2vw + .5rem, 1.5rem); }
   #open:active { transform: scale(.97); }
   #open.leaving { animation: none; opacity: 0; transform: scale(.85); pointer-events: none; }
   @keyframes breathe { 0%,100% { transform: scale(1);} 50% { transform: scale(1.04);} }
@@ -168,6 +179,7 @@
 </div>
 <div class="spybg" aria-hidden="true"></div>
 <main>
+<a class="big" id="thanks" href="thank-you/">open the thank you &rarr;</a>
 <button id="open" type="button">click here to open a surprise</button>
 <section id="stage">
 
@@ -224,9 +236,10 @@
   btn.addEventListener('click', function () {
     if (opened) return; opened = true;
     track('open');
+    var big = document.getElementById('thanks'); if (big) big.classList.add('leaving');
     btn.classList.add('leaving');
     setTimeout(function () {
-      btn.style.display = 'none';
+      btn.style.display = 'none'; if (big) big.style.display = 'none';
       stage.classList.add('show');
       reveal();
       if (!reduce) confetti();
@@ -300,6 +313,7 @@
     if (h.decode) h.decode().then(go, go); else go();
   }
   document.getElementById('flip').addEventListener('click', function () { track('photo-turn'); turn(); });
+  var thanksLink = document.getElementById('thanks'); if (thanksLink) thanksLink.addEventListener('click', function () { track('thank-you-link'); });
   (function scenes() {
     var more = document.getElementById('more'), scene2 = document.getElementById('scene2'), back = document.getElementById('back');
     var first = document.querySelector('.duo:not(.duo2)'), vid = document.getElementById('pj');

@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thank you</title>
+<meta name="theme-color" content="#eef6ff">
+<style>
+  :root { --ink: #2f4059; --ink-soft: #5d7390; --card: #fbfdff; --paper: #fffdf8; --accent: #f28b6f; --line: rgba(47,64,89,.22); --bg: #eef6ff; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: Georgia, "Times New Roman", serif; color: var(--ink); background: var(--bg);
+    transition: background-color 1.4s ease; -webkit-text-size-adjust: 100%; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 18px; }
+
+  /* ---- opening letter ---- */
+  header { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; padding: 32px 0 24px; }
+  .letter { background: var(--paper); padding: 26px 28px; border-radius: 4px; max-width: 520px; margin: 0 auto;
+    box-shadow: 0 12px 30px rgba(47,64,89,.16), 0 1px 3px rgba(47,64,89,.08); transform: rotate(-1deg);
+    font-size: 1.06rem; line-height: 1.6; }
+  .letter p { margin: 0 0 .75em; } .letter p:last-child { margin: 0; }
+  .scrollhint { text-align: center; color: var(--ink-soft); font-style: italic; font-size: .92rem; margin-top: 34px; animation: bob 2.6s ease-in-out infinite; }
+  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+  /* ---- timeline ---- */
+  .timeline { position: relative; padding: 24px 0 8px; }
+  .timeline::before { content: ''; position: absolute; left: 17px; top: 0; bottom: 0; width: 2px; background: var(--line); }
+  .moment { position: relative; padding: 0 0 0 42px; margin: 0 0 64px; opacity: 0; transform: translateY(26px);
+    transition: opacity .9s ease, transform .9s ease;
+    display: grid; grid-template-columns: minmax(0, 42%) minmax(0, 1fr); grid-template-areas: "when when" "show text"; column-gap: 14px; align-items: start; }
+  .moment.in { opacity: 1; transform: none; }
+  .moment::before { content: ''; position: absolute; left: 10px; top: 2px; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 0 5px var(--bg); transition: box-shadow 1.4s ease; }
+  .when { grid-area: when; font: 600 .72rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--ink-soft); margin: 0 0 12px; }
+  .show { grid-area: show; }
+  .text { grid-area: text; padding-top: 2px; }
+  .text p { margin: 0; font-size: .98rem; line-height: 1.5; }
+  .text p + p { margin-top: .6em; }
+
+  /* ---- one slideshow card per moment ---- */
+  .show { position: relative; width: 100%; background: var(--card); padding: 8px 8px 34px; border-radius: 6px;
+    box-shadow: 0 12px 28px rgba(47,64,89,.16), 0 1px 3px rgba(47,64,89,.08); transform: rotate(-.8deg); }
+  .moment:nth-child(even) .show { transform: rotate(.7deg); }
+  @media (max-width: 719px) { .swipe { display: none; } .show { padding-bottom: 28px; } .dots { bottom: 9px; } .dots i { width: 6px; height: 6px; gap: 5px; } }
+  .track { display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none;
+    -webkit-overflow-scrolling: touch; border-radius: 3px; background: #e6eff8; cursor: pointer; }
+  .track::-webkit-scrollbar { display: none; }
+  .slide { flex: 0 0 100%; margin: 0; scroll-snap-align: center; }
+  .slide img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 35%; background: #e6eff8; }
+  .show.single .slide img { aspect-ratio: auto; }
+  .dots { position: absolute; left: 0; right: 0; bottom: 11px; display: flex; justify-content: center; gap: 6px; pointer-events: none; }
+  .dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(47,64,89,.2); transition: background .3s, transform .3s; pointer-events: auto; cursor: pointer; }
+  .dots i.on { background: var(--accent); transform: scale(1.3); }
+  .count { position: absolute; right: 14px; top: 14px; padding: 4px 7px; border-radius: 999px; background: rgba(255,255,255,.88); color: var(--ink);
+    font: 600 .6rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: .1em; pointer-events: none; }
+  .swipe { position: absolute; left: 12px; bottom: 10px; font: italic .72rem/1 Georgia, serif; color: var(--ink-soft); opacity: .9; }
+  .arrow { display: none; position: absolute; top: 45%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; border: 0;
+    background: rgba(255,255,255,.92); color: var(--ink); font-size: 1.3rem; line-height: 36px; text-align: center; cursor: pointer; box-shadow: 0 4px 12px rgba(47,64,89,.18); padding: 0; }
+  .arrow.prev { left: -16px; } .arrow.next { right: -16px; }
+  @media (hover: hover) { .show:not(.single) .arrow { display: block; } .swipe { display: none; } }
+  .show.single .dots, .show.single .count, .show.single .swipe, .show.single .arrow { display: none; }
+  .show.single { padding-bottom: 12px; }
+
+  /* ---- the end ---- */
+  .end { position: relative; margin: 10px 0 0; padding: 0 0 0 46px; opacity: 0; transform: translateY(26px); transition: opacity .9s ease, transform .9s ease; }
+  .end.in { opacity: 1; transform: none; }
+  .end::before { content: ''; position: absolute; left: 10px; top: 2px; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 5px var(--bg); transition: box-shadow 1.4s ease; }
+  .end .letter { position: relative; transform: rotate(.6deg); margin: 0; padding-bottom: 64px; }
+  .sign { font-style: italic; color: var(--ink-soft); text-align: right; margin-top: .6em !important; }
+  .stamp { position: absolute; right: 10px; bottom: -14px; width: 200px; padding: 8px 6px 7px; background: #b01c27; border: 4px solid #b01c27; border-radius: 10px;
+    color: #fff; text-align: center; text-transform: uppercase; outline: 2px solid #fff; outline-offset: -8px; box-shadow: 0 6px 16px rgba(47,64,89,.25);
+    font-family: "Helvetica Neue", Arial, sans-serif; font-style: normal; line-height: 1.05; white-space: nowrap; transform: rotate(-11deg) scale(1.9); opacity: 0; }
+  .stamp span { display: block; }
+  .stamp .s1 { font-size: 1.68rem; font-weight: 900; letter-spacing: .07em; }
+  .stamp .s2 { font-size: .8rem; font-weight: 900; letter-spacing: .08em; margin-top: 3px; }
+  .stamp .s3 { font-size: .57rem; font-weight: 800; letter-spacing: .05em; margin-top: 4px; }
+  .end.in .stamp { animation: stampin .5s cubic-bezier(.2,1.2,.4,1) .9s forwards; }
+  @keyframes stampin { 0% { opacity: 0; transform: rotate(-11deg) scale(1.9); } 65% { opacity: 1; transform: rotate(-11deg) scale(.96); } 100% { opacity: 1; transform: rotate(-11deg) scale(1); } }
+  footer { text-align: center; color: var(--ink-soft); font-size: .8rem; padding: 70px 0 40px; }
+
+  /* ---- wider screens: bigger photo, text beside it ---- */
+  @media (min-width: 720px) {
+    .wrap { max-width: 880px; }
+    .moment { grid-template-columns: 320px minmax(0, 1fr); column-gap: 40px; padding-left: 50px; margin-bottom: 84px; }
+    .text p { font-size: 1.08rem; line-height: 1.6; max-width: 56ch; }
+    .end { padding-left: 50px; }
+    .end .letter { margin-left: 0; max-width: 560px; }
+  }
+  /* phones: the text starts beside the card and continues under it at full width */
+  @media (max-width: 719px) {
+    .moment { display: block; }
+    .moment::after { content: ''; display: block; clear: both; }
+    .show { float: left; width: 42%; margin: 0 14px 10px 0; }
+    .text { padding-top: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .moment, .end { opacity: 1; transform: none; transition: none; }
+    .scrollhint { animation: none; } .end.in .stamp { animation: none; opacity: 1; transform: rotate(-11deg); }
+    body { transition: none; } html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap" data-bg="#eef6ff">
+  <div class="letter">
+    <p>Dear Nelciu,</p>
+    <p>I wanted to say thank you properly, for all of it. You&rsquo;ve had enough of my words this month, so most of this is pictures. I went back through everything we ever sent each other to build it, which took a whole day, and I&rsquo;d do it again.</p>
+    <p>You thanked me once for a bag of presents in excessive detail. Those were your words. Every single thing in the bag, one by one, what it was and why it mattered. This is me doing it back to you, in order, from the first weekend to the last one. Scroll slowly. Swipe the photos. You don&rsquo;t have to reply to any of it. It&rsquo;s just thank you.</p>
+  </div>
+  <div class="scrollhint">&darr; start at the beginning</div>
+</header>
+
+<main class="wrap">
+  <div class="timeline">
+
+    <section class="moment" data-bg="#e9f1fb">
+      <div class="when">Pozna&#324; &middot; 1 May</div>
+      <div class="show" data-photos="poz1"></div>
+      <div class="text">
+        <p>The lift mirror. Your first weekend in Poznań.</p>
+        <p>Two days before this you&rsquo;d texted me "co z kwiatkami, myszko?" because the flowers I&rsquo;d sent had turned up, and then "ty taki słodziak jesteś serio, thank you so so so much." That same day you told me you had to manually open one of Luna&rsquo;s eyes because it had got stuck shut, and that you hadn&rsquo;t been on a Polish train in about a million years and it was exciting. That was how you came to me. On a bank holiday train you hadn&rsquo;t taken in a decade, after prising your cat&rsquo;s eye open.</p>
+        <p>You called it the grand duchy of Poznań. You called me Mr Finance Trust Fund Patagonia because of the jacket, and then told me green looks good on me, which I&rsquo;ve thought about every time I&rsquo;ve put that jacket on since. I&rsquo;d been living there for months and it was just a place I worked. You turned up for one weekend and it stopped being that.</p>
+        <p>Thank you for getting on the train.</p>
+      </div>
+    </section>
+
+    <section class="moment" data-bg="#e3eef7">
+      <div class="when">6 May</div>
+      <div class="show" data-photos="ipad1"></div>
+      <div class="text">
+        <p>The iPad mirror. Five days after Poznań and I already had a folder of you. There&rsquo;s a folder. It&rsquo;s embarrassing.</p>
+        <p>This was the week you were telling me to keep going with the Polish, that most Poles are embarrassed to speak another language and it&rsquo;s easier from the comfort of your own home, and asking me "jak polski dzisiaj?" like a teacher. It was also the week you felt like crap and bought yourself ice cream because you deserved a little pick me up, and peach Nestea, "bo je bardzo lubię." I didn&rsquo;t know yet that I&rsquo;d remember the exact flavour of a soft drink you mentioned once in May.</p>
+        <p>You wrote "ja też tęsknię, głupoto." I&rsquo;ve never been called an idiot so nicely.</p>
+        <p>Thank you for the lessons.</p>
+      </div>
+    </section>
+
+    <section class="moment" data-bg="#dfeaf4">
+      <div class="when">Warsaw &middot; 21 May</div>
+      <div class="show" data-photos="waw3"></div>
+      <div class="text">
+        <p>The one where nothing happened. We just sat there.</p>
+        <p>Two days before this, the morning after I&rsquo;d stayed, you wrote that I&rsquo;d helped you go back to sleep and that you were such a lucky girl. You said you needed to apply for your criminal record, because everyone has one, just some people have crimes on it. You asked me to bring dat mango mochi and the panko chicken from Sushi Zushi. You said you had to clean the gaff before I came because it was NASTEYYY. And that night, after I&rsquo;d gone, "I can still smell you. I miss you as soon as you&rsquo;re gone."</p>
+        <p>Then at the party you argued the EU with me in front of everyone and took my side, and I knew you didn&rsquo;t fully agree, and you did it anyway. It wasn&rsquo;t about winning. You just wanted me to win. Then we played Rummikub and you spoke in capitals the whole game.</p>
+        <p>I think of this as the weekend I stopped being a visitor.</p>
+        <p>Thank you for taking my side.</p>
+      </div>
+    </section>
+
+    <section class="moment" data-bg="#e4e4f2">
+      <div class="when">May and June &middot; the calls</div>
+      <div class="show" data-photos="ft4,ft2,ft3,ft1"></div>
+      <div class="text">
+        <p>Four faces from four calls. 27 May, 31 May, 13 June, 13 June.</p>
+        <p>The night before the first one you&rsquo;d had a scare and couldn&rsquo;t sleep, so I stayed on the phone until four. In the morning you wrote "had my protector with me all night" and thanked me for staying up and for the silly reels before bed. Then you said you&rsquo;d do better about telling me when I was doing good. You did. You told me constantly after that. I don&rsquo;t think I told you enough how much that changed things for me.</p>
+        <p>That was also the morning you sent me an extra scrungly zdjęcie lunsonka. A week later I was at the ball.</p>
+        <p>Then your holiday in June. You by the pool telling me the sun isn&rsquo;t a good charger. You telling me the best superpower is teleportation. "I can&rsquo;t help but keep talking about u." You rating the truffle fries as mid and saying the Prime Cut ones were better. You saying skinny dipping had been on your bucket list forever and you wanted to do it with me. I still owe you that.</p>
+        <p>I&rsquo;d stay up until two for a call then write you the little text after we hung up because I wasn&rsquo;t ready for it to be over. You always wrote back.</p>
+        <p>Thank you for picking up.</p>
+      </div>
+    </section>
+
+    <section class="moment" data-bg="#e6efe3">
+      <div class="when">England &middot; June</div>
+      <div class="show" data-photos="eng1,eng2,londona,eng3"></div>
+      <div class="text">
+        <p>White tie. Champagne. The captain&rsquo;s hat. Outside the restaurant.</p>
+        <p>Before you came you went to the dentist and announced you finally had all 28 of your teeth again. You said you were on a quest to find and kill your doppelgängers so I didn&rsquo;t get any ideas, and that I was the only man for you, forevaaaa. You tried the opera dress on with your mum and picked the shoes and the bag with her, and then texted me "just picked all my fits for London with mum." You planned it like a campaign.</p>
+        <p>Then you came, and you walked around my city like it was yours, and you let me show you off to people I&rsquo;ve known my whole life. The captain&rsquo;s hat was your idea. The champagne was mine. You looked like you&rsquo;d always been there.</p>
+        <p>Thank you for coming to England.</p>
+      </div>
+    </section>
+
+    <section class="moment" data-bg="#ece9df">
+      <div class="when">July &middot; the faces</div>
+      <div class="show" data-photos="selfire1,selfie2"></div>
+      <div class="text">
+        <p>Tea on the 5th. Crisps on the 6th.</p>
+        <p>Two days before these I&rsquo;d asked you for three ice creams and you went to Biedronka and there was no Häagen-Dazs, so you brought dinner from home instead, "cause I figured you&rsquo;d be tired, I&rsquo;ve got bread and everything, I can bring some extra mochi." You called me a little lad who loves berries and cream. You sent me "listen to my song!!!" and "remember to check for champagne" and "go knock their socks off!!!" in the space of one morning.</p>
+        <p>You told me to think about you every time I have a cup of tea. I have tea most days. You know what that means.</p>
+        <p>You called it school with Mr Hip. You were the only student I ever had.</p>
+        <p>Thank you for the dinner from home.</p>
+      </div>
+    </section>
+
+    <section class="moment" data-bg="#f6e9dc">
+      <div class="when">Warsaw &middot; July and August</div>
+      <div class="show" data-photos="waw6,waw4,waw5,waw,waw2"></div>
+      <div class="text">
+        <p>Veturilo bikes. Two metro lines. The pizza with prosciutto you let me get without complaining. Painting all day. The easel that got stolen while I stood in a pharmacy queue. Your drawings of us. The museum café on 31 July. The view from Poselska. The city below us on 8 August. The tree on the 24th.</p>
+        <p>In between, all of it. You telling me off for lifting without a spotter, "I just want u alive forever, can&rsquo;t believe you&rsquo;re beefin me cause I want you to be safe." The contact lenses I bought you. You cutting Luna&rsquo;s nails and reporting it went almost concerningly fast and she wasn&rsquo;t even that mad. You going to the butcher for me with my list, in the rain, with no bikes anywhere, "this is turning into a serious quest." You attempting a wig after lunch, pink and blue. The white flip flop hunt before Italy, Arkadia, I LOVE THE STRIPES, "I just walked with the spirit guiding me." You asking me for a Saska Kępa pass for all the concerts.</p>
+        <p>And on my CFA day, from a Turkish breakfast you hated, "trzymam za ciebie kciuki, uda się, daj znać jak wyjdziesz, będę czekać na relację. Fuck the ethics code." I passed, by the way. You were the first person I wanted to tell.</p>
+        <p>Nothing in these photos is special. They&rsquo;re the best days I&rsquo;ve had.</p>
+        <p>Thank you for the summer.</p>
+      </div>
+    </section>
+
+    <section class="moment" data-bg="#f8dfcf">
+      <div class="when">Italy &middot; August</div>
+      <div class="show" data-photos="ita1,itaa,ita2,ita3,ita4,ita5"></div>
+      <div class="text">
+        <p>The pier in the white dress. The garden in the mornings. Dinner on the 15th. The garden again. The kiss in the car.</p>
+        <p>You flew out with no iPad, "just crosswords and a dream." That morning you&rsquo;d found your granddad&rsquo;s camera charger and not the camera. From the plane you sent "prosciutto if you can xxx." Then you landed in a tiny arrivals hall with a driver who wasn&rsquo;t picking up and you nearly had a panic attack, and then you found me, and then we were in the garden and none of it mattered.</p>
+        <p>I researched when the shooting stars would be because I wanted you to see one. We made the Italy tape. We ate too much and sat in the car and didn&rsquo;t want to get out of it.</p>
+        <p>I&rsquo;d do that week again exactly as it was.</p>
+        <p>Thank you for Italy.</p>
+      </div>
+    </section>
+
+    <section class="moment" data-bg="#efe6ea">
+      <div class="when">September</div>
+      <div class="show" data-photos="eng4,selfire4,selfie3,selfie5"></div>
+      <div class="text">
+        <p>The 1st. The last one from England.</p>
+        <p>From the plane you wrote "still have your big fat kiss with me," that you had a whole row to yourself, that you&rsquo;d love to be pocket sized, that you wished it was £12 to go to America. You said you cried a little on the plane. I didn&rsquo;t know what to do with that. I still don&rsquo;t.</p>
+        <p>Then I was in America and you were everywhere anyway. The faces on the 3rd and the 6th and the 16th. You telling me how to beat the jet lag. The breakfast setup. You swimming in a cave pool that was "taki turquoise clear." You running out of honey. You buying milk for my tea even though I wasn&rsquo;t there. "It was so nice to talk to you when I woke up."</p>
+        <p>The 11th. "I AM IN THE WRONG RESTAURANT." Then the right one, a Malbec and a New York steak they made into a tagliata, "we might have to come here together," then Feliks Bar, then bed with crazy drunk hiccups and missing me loads. Then on the 21st you told me you missed me crazy.</p>
+        <p>I&rsquo;d read these on a bench between classes and feel like I was still in Warsaw.</p>
+        <p>Thank you for the mornings.</p>
+      </div>
+    </section>
+
+    <section class="moment" data-bg="#e9e3ef">
+      <div class="when">Luna &middot; September</div>
+      <div class="show" data-photos="luna,luna2"></div>
+      <div class="text">
+        <p>A Siberian. Hair not fur. Flower paper. Literally a shrimp. Polędwica łososiowa, the good stuff. Not a fan of mommy travelling.</p>
+        <p>The eye that got stuck shut in April. The nails in July that went almost concerningly fast. "Great news, she remains our only child." The Luna purrs you&rsquo;d send me when I was down. The kiciusia on Snap.</p>
+        <p>She approved of me eventually. I&rsquo;m told it was close.</p>
+        <p>The filters are coming, Luna. I hope you&rsquo;re being kind to the new one.</p>
+        <p>Thank you, council.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="end" data-bg="#f7f1e3">
+    <div class="letter">
+      <p>Three weeks ago you opened the door and let me in, and we had sushi and wine and you let me stay. You didn&rsquo;t have to do any of that.</p>
+      <p>That was my excessive detail. Thank you, Nel, for all of it.</p>
+      <p>Whatever comes next, I&rsquo;m glad it was you. I always will be.</p>
+      <p class="sign">Yours,<br>zeeb, hipcia</p>
+      <div class="stamp" role="img" aria-label="Approved by the council"><span class="s1">Approved</span><span class="s2">by the council</span><span class="s3">ref. ZEEBZEEB</span></div>
+    </div>
+  </section>
+</main>
+
+<footer>made by hand, with Luna&rsquo;s supervision &#128125;</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- build each slideshow from its photo list
+  [].slice.call(document.querySelectorAll('.show')).forEach(function (show, showIndex) {
+    var names = show.getAttribute('data-photos').split(',');
+    var track = document.createElement('div'); track.className = 'track';
+    names.forEach(function (n, i) {
+      var fig = document.createElement('figure'); fig.className = 'slide';
+      var img = document.createElement('img'); img.src = 'img/' + n + '.jpg'; img.alt = ''; img.loading = i === 0 ? 'eager' : 'lazy'; img.decoding = 'async';
+      fig.appendChild(img); track.appendChild(fig);
+    });
+    show.appendChild(track);
+    if (names.length < 2) { show.classList.add('single'); return; }
+
+    var dots = document.createElement('div'); dots.className = 'dots';
+    names.forEach(function (_, i) { var d = document.createElement('i'); d.addEventListener('click', function (e) { e.stopPropagation(); go(i); }); dots.appendChild(d); });
+    var count = document.createElement('div'); count.className = 'count';
+    var swipe = document.createElement('div'); swipe.className = 'swipe'; swipe.textContent = 'swipe →';
+    var prev = document.createElement('button'); prev.className = 'arrow prev'; prev.type = 'button'; prev.innerHTML = '&#8249;'; prev.setAttribute('aria-label', 'previous');
+    var next = document.createElement('button'); next.className = 'arrow next'; next.type = 'button'; next.innerHTML = '&#8250;'; next.setAttribute('aria-label', 'next');
+    show.appendChild(dots); show.appendChild(count); show.appendChild(swipe); show.appendChild(prev); show.appendChild(next);
+
+    var cur = 0, moved = false;
+    function paint() {
+      [].forEach.call(dots.children, function (d, k) { d.classList.toggle('on', k === cur); });
+      count.textContent = (cur + 1) + ' / ' + names.length;
+      swipe.style.opacity = cur === 0 ? '.9' : '0';
+    }
+    function go(i) {
+      i = Math.max(0, Math.min(names.length - 1, i));
+      track.scrollTo({ left: i * track.clientWidth, behavior: reduce ? 'auto' : 'smooth' });
+    }
+    var raf = null;
+    track.addEventListener('scroll', function () {
+      if (raf) return;
+      raf = requestAnimationFrame(function () { raf = null; var i = Math.round(track.scrollLeft / track.clientWidth); if (i !== cur) { cur = i; paint(); } });
+    });
+    prev.addEventListener('click', function () { go(cur - 1); });
+    next.addEventListener('click', function () { go(cur + 1); });
+    // tap on the photo: left third goes back, the rest goes forward; a drag is left to the native swipe
+    var sx = 0, sy = 0;
+    track.addEventListener('pointerdown', function (e) { sx = e.clientX; sy = e.clientY; moved = false; });
+    track.addEventListener('pointermove', function (e) { if (Math.abs(e.clientX - sx) > 8 || Math.abs(e.clientY - sy) > 8) moved = true; });
+    track.addEventListener('pointerup', function (e) {
+      if (moved) return;
+      var x = e.clientX - track.getBoundingClientRect().left;
+      go(x < track.clientWidth / 3 ? cur - 1 : cur + 1);
+    });
+    paint();
+  });
+
+  // ---- reveal on scroll and change the background per moment
+  var root = document.documentElement;
+  function setBg(c) { document.body.style.backgroundColor = c; root.style.setProperty('--bg', c); }
+  var blocks = [].slice.call(document.querySelectorAll('[data-bg]'));
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          if (e.intersectionRatio >= 0.45 || e.target.tagName === 'HEADER') setBg(e.target.getAttribute('data-bg'));
+        }
+      });
+    }, { threshold: [0.15, 0.45] });
+    blocks.forEach(function (b) { io.observe(b); });
+  } else {
+    blocks.forEach(function (b) { b.classList.add('in'); });
+  }
+})();
+</script>
+<script>
+  var GC_CODE = 'for-nel';
+  (function () {
+    if (!GC_CODE || location.hostname !== 'hiphodges-sketch.github.io' || location.search.indexOf('nocount') !== -1) return;
+    var s = document.createElement('script'); s.async = true; s.src = 'https://gc.zgo.at/count.js';
+    s.setAttribute('data-goatcounter', 'https://' + GC_CODE + '.goatcounter.com/count'); document.head.appendChild(s);
+  })();
+</script>
+</body>
+</html>
