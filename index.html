@@ -206,6 +206,15 @@
 </main>
 <canvas id="confetti" aria-hidden="true"></canvas>
 <script>
+  var GC_CODE = 'for-nel';   // GoatCounter site code
+  (function () {
+    if (!GC_CODE || location.hostname !== 'hiphodges-sketch.github.io' || location.search.indexOf('nocount') !== -1) return;
+    var s = document.createElement('script'); s.async = true; s.src = 'https://gc.zgo.at/count.js';
+    s.setAttribute('data-goatcounter', 'https://' + GC_CODE + '.goatcounter.com/count'); document.head.appendChild(s);
+  })();
+  function track(name) {
+    try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: name, title: name, event: true }); } catch (e) {}
+  }
 (function () {
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -213,10 +222,7 @@
   var opened = false;
   btn.addEventListener('click', function () {
     if (opened) return; opened = true;
-    // plain open counter: no cookies, no location, only counts on the live site and not with ?nocount
-    if (location.hostname === 'hiphodges-sketch.github.io' && location.search.indexOf('nocount') === -1) {
-      try { fetch('https://abacus.jasoncameron.dev/hit/for-nel-79f189bf/opened', { mode: 'cors', keepalive: true }).catch(function () {}); } catch (e) {}
-    }
+    track('open');
     btn.classList.add('leaving');
     setTimeout(function () {
       btn.style.display = 'none';
@@ -292,11 +298,12 @@
     };
     if (h.decode) h.decode().then(go, go); else go();
   }
-  document.getElementById('flip').addEventListener('click', turn);
+  document.getElementById('flip').addEventListener('click', function () { track('photo-turn'); turn(); });
   (function scenes() {
     var more = document.getElementById('more'), scene2 = document.getElementById('scene2'), back = document.getElementById('back');
     var first = document.querySelector('.duo:not(.duo2)'), vid = document.getElementById('pj');
     more.addEventListener('click', function () {
+      track('one-more-thing');
       first.style.display = 'none'; more.style.display = 'none'; scene2.classList.add('show'); document.body.classList.add('spy');
       document.getElementById('note2').classList.add('show');
       if (vid.play) vid.play().catch(function () {});
