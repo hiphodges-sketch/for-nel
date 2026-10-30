@@ -114,7 +114,7 @@
   #scene2 { display: none; width: 100%; }
   #scene2.show { display: block; animation: scenein .7s ease both; }
   @keyframes scenein { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-  .note2 { padding-bottom: 22px !important; max-width: 380px; }
+  .note2 { padding-bottom: 64px !important; max-width: 380px; }
   .note2 p:last-child { margin-top: .9em; }
   .vwrap { display: flex; flex-direction: column; align-items: center; }
   .vframe { position: relative; width: min(62vw, 250px); background: var(--card); padding: 10px 10px 34px; border-radius: 6px;
@@ -123,7 +123,7 @@
   .vframe .cap { position: absolute; left: 10px; right: 10px; bottom: 7px; height: 22px; line-height: 22px; text-align: center; font-family: Georgia, "Times New Roman", serif; font-style: italic; font-size: .95rem; color: var(--ink-soft); }
   .back { appearance: none; border: 0; background: none; cursor: pointer; font: inherit; font-size: .85rem; color: var(--ink-soft); text-decoration: underline; margin-top: 14px; padding: 6px 10px; }
   @media (max-width: 719px) { .vwrap { order: -1; } .note2 { font-size: .93rem; } }
-  @media (max-height: 740px) and (max-width: 719px) { .vframe video { height: min(30vh, 280px); height: min(30dvh, 280px); } .note2 { font-size: .88rem; padding: 14px 18px 16px !important; } }
+  @media (max-height: 740px) and (max-width: 719px) { .vframe video { height: min(24vh, 280px); height: min(24dvh, 280px); } .note2 { font-size: .86rem; padding: 14px 18px 56px !important; } .back { margin-top: 8px; } }
   .flip { perspective: 1200px; width: min(68vw, 320px); height: min(40vh, 380px); height: min(40dvh, 380px); cursor: pointer; opacity: 0; transition: opacity .7s ease; }
   .flip.show { opacity: 1; }
   .inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .9s cubic-bezier(.4,0,.2,1); transform: rotateY(-90deg); }
@@ -193,7 +193,8 @@
       <div class="letter note2" id="note2">
         <p>p.p.s. you just had your big interview, and I just wanted to congratulate you. I know it took everything out of you, the hours in that room, and you did it anyway.</p>
         <p>Whatever they decide, the brave part is already done. And I&rsquo;m not worried about how this ends, because you&rsquo;re already him. Nobody reads a room, or a person, the way you do, and that very, very keen eye of yours misses&nbsp;nothing.</p>
-        <p class="ps">p.s. stamp pending council review</p>
+        <p class="ps">p.s. council review complete, see stamp</p>
+        <div class="stamp stamp2" id="stamp2" role="img" aria-label="Approved by the council, 23 October 2026"><span class="s1">Approved</span><span class="s2">by the council</span><span class="s3">23 Oct 2026 &middot; ref. ZEEBZEEB</span></div>
       </div>
       <div class="vwrap">
         <div class="vframe"><video id="pj" src="patrick.mp4" poster="patrick-poster.jpg" autoplay muted loop playsinline preload="auto"></video><span class="cap">already you</span></div>
@@ -304,6 +305,7 @@
     var first = document.querySelector('.duo:not(.duo2)'), vid = document.getElementById('pj');
     more.addEventListener('click', function () {
       track('one-more-thing');
+      setTimeout(function () { document.getElementById('stamp2').classList.add('in'); }, 1400);
       first.style.display = 'none'; more.style.display = 'none'; scene2.classList.add('show'); document.body.classList.add('spy');
       document.getElementById('note2').classList.add('show');
       if (vid.play) vid.play().catch(function () {});
