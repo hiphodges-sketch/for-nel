@@ -39,7 +39,7 @@
   .text p + p { margin-top: .6em; }
   .text.folded p:nth-of-type(n+3) { display: none; }
   .readon { appearance: none; border: 0; background: none; padding: 0; margin-top: .7em; cursor: pointer; font: inherit; font-style: italic; font-size: .92em; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
-  .text:not(.folded) .readon { display: none; }
+  .text:not(.folded) .readon { margin-top: 1em; }
 
   /* ---- one slideshow card per moment ---- */
   .show { position: relative; width: 100%; background: var(--card); padding: 8px 8px 34px; border-radius: 6px;
@@ -318,7 +318,12 @@
     if (ps.length <= 2) return;
     t.classList.add('folded');
     var b = document.createElement('button'); b.type = 'button'; b.className = 'readon'; b.textContent = 'read on \u2193';
-    b.addEventListener('click', function () { t.classList.remove('folded'); });
+    b.addEventListener('click', function () {
+      var folding = !t.classList.contains('folded');
+      t.classList.toggle('folded');
+      b.textContent = folding ? 'read on \u2193' : 'fold up \u2191';
+      if (folding) { var top = t.closest('.moment').getBoundingClientRect().top; if (top < 0) t.closest('.moment').scrollIntoView({ block: 'start' }); }
+    });
     t.appendChild(b);
   });
 
