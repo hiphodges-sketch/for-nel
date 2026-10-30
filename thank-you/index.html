@@ -37,6 +37,9 @@
   .text { grid-area: text; padding-top: 2px; }
   .text p { margin: 0; font-size: .98rem; line-height: 1.5; }
   .text p + p { margin-top: .6em; }
+  .text.folded p:nth-of-type(n+3) { display: none; }
+  .readon { appearance: none; border: 0; background: none; padding: 0; margin-top: .7em; cursor: pointer; font: inherit; font-style: italic; font-size: .92em; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .text:not(.folded) .readon { display: none; }
 
   /* ---- one slideshow card per moment ---- */
   .show { position: relative; width: 100%; background: var(--card); padding: 8px 8px 34px; border-radius: 6px;
@@ -46,9 +49,12 @@
   .track { display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none;
     -webkit-overflow-scrolling: touch; border-radius: 3px; background: #e6eff8; cursor: pointer; }
   .track::-webkit-scrollbar { display: none; }
-  .slide { flex: 0 0 100%; margin: 0; scroll-snap-align: center; }
-  .slide img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 35%; background: #e6eff8; }
-  .show.single .slide img { aspect-ratio: auto; }
+  .slide { flex: 0 0 100%; margin: 0; scroll-snap-align: center; position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #dfe8f1; }
+  .slide .blur { position: absolute; inset: -12%; width: 124%; height: 124%; object-fit: cover; filter: blur(18px) saturate(1.1); opacity: .8; }
+  .slide .pic { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; }
+  .show.single .slide { aspect-ratio: auto; }
+  .show.single .slide .blur { display: none; }
+  .show.single .slide .pic { height: auto; object-fit: fill; }
   .dots { position: absolute; left: 0; right: 0; bottom: 11px; display: flex; justify-content: center; gap: 6px; pointer-events: none; }
   .dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(47,64,89,.2); transition: background .3s, transform .3s; pointer-events: auto; cursor: pointer; }
   .dots i.on { background: var(--accent); transform: scale(1.3); }
@@ -84,6 +90,7 @@
     .wrap { max-width: 880px; }
     .moment { grid-template-columns: 320px minmax(0, 1fr); column-gap: 40px; padding-left: 50px; margin-bottom: 84px; }
     .text p { font-size: 1.08rem; line-height: 1.6; max-width: 56ch; }
+    .show { position: sticky; top: 24px; }
     .end { padding-left: 50px; }
     .end .letter { margin-left: 0; max-width: 560px; }
   }
@@ -106,7 +113,7 @@
 <header class="wrap" data-bg="#eef6ff">
   <div class="letter">
     <p>Dear Nelciu,</p>
-    <p>I wanted to say thank you properly, for all of it. You&rsquo;ve had enough of my words this month, so most of this is pictures. I went back through everything we ever sent each other to build it, which took a whole day, and I&rsquo;d do it again.</p>
+    <p>I wanted to say thank you properly, for all of it. You&rsquo;ve had enough of my words this month, so most of this is pictures. I went back through everything we ever sent each other to build it. An entire weekend, nineteen thousand texts, and I don&rsquo;t regret a minute of it.</p>
     <p>You thanked me once for a bag of presents in excessive detail. Those were your words. Every single thing in the bag, one by one, what it was and why it mattered. This is me doing it back to you, in order, from the first weekend to the last one. Scroll slowly. Swipe the photos. You don&rsquo;t have to reply to any of it. It&rsquo;s just thank you.</p>
   </div>
   <div class="scrollhint">&darr; start at the beginning</div>
@@ -121,7 +128,7 @@
       <div class="text">
         <p>The lift mirror. Your first weekend in Poznań.</p>
         <p>Two days before this you&rsquo;d texted me "co z kwiatkami, myszko?" because the flowers I&rsquo;d sent had turned up, and then "ty taki słodziak jesteś serio, thank you so so so much." That same day you told me you had to manually open one of Luna&rsquo;s eyes because it had got stuck shut, and that you hadn&rsquo;t been on a Polish train in about a million years and it was exciting. That was how you came to me. On a bank holiday train you hadn&rsquo;t taken in a decade, after prising your cat&rsquo;s eye open.</p>
-        <p>You called it the grand duchy of Poznań. You called me Mr Finance Trust Fund Patagonia because of the jacket, and then told me green looks good on me, which I&rsquo;ve thought about every time I&rsquo;ve put that jacket on since. I&rsquo;d been living there for months and it was just a place I worked. You turned up for one weekend and it stopped being that.</p>
+        <p>You called it the grand duchy of Poznań. You called me Mr Finance Trust Fund Patagonia because of the jacket, and then told me green looks good on me, which I&rsquo;ve thought about every time I&rsquo;ve put that jacket on since. I&rsquo;d been living there for months and it was just a place I worked. You turned up for one weekend and I suddenly loved that chujowe place, because you were there with me.</p>
         <p>Thank you for getting on the train.</p>
       </div>
     </section>
@@ -130,7 +137,7 @@
       <div class="when">6 May</div>
       <div class="show" data-photos="ipad1"></div>
       <div class="text">
-        <p>The iPad mirror. Five days after Poznań and I already had a folder of you. There&rsquo;s a folder. It&rsquo;s embarrassing.</p>
+        <p>The cunty iPad photo, the one I loved and made a sticker out of. Five days after Poznań and I already had a folder of you. There&rsquo;s a folder. It&rsquo;s embarrassing.</p>
         <p>This was the week you were telling me to keep going with the Polish, that most Poles are embarrassed to speak another language and it&rsquo;s easier from the comfort of your own home, and asking me "jak polski dzisiaj?" like a teacher. It was also the week you felt like crap and bought yourself ice cream because you deserved a little pick me up, and peach Nestea, "bo je bardzo lubię." I didn&rsquo;t know yet that I&rsquo;d remember the exact flavour of a soft drink you mentioned once in May.</p>
         <p>You wrote "ja też tęsknię, głupoto." I&rsquo;ve never been called an idiot so nicely.</p>
         <p>Thank you for the lessons.</p>
@@ -143,9 +150,10 @@
       <div class="text">
         <p>The one where nothing happened. We just sat there.</p>
         <p>Two days before this, the morning after I&rsquo;d stayed, you wrote that I&rsquo;d helped you go back to sleep and that you were such a lucky girl. You said you needed to apply for your criminal record, because everyone has one, just some people have crimes on it. You asked me to bring dat mango mochi and the panko chicken from Sushi Zushi. You said you had to clean the gaff before I came because it was NASTEYYY. And that night, after I&rsquo;d gone, "I can still smell you. I miss you as soon as you&rsquo;re gone."</p>
-        <p>Then at the party you argued the EU with me in front of everyone and took my side, and I knew you didn&rsquo;t fully agree, and you did it anyway. It wasn&rsquo;t about winning. You just wanted me to win. Then we played Rummikub and you spoke in capitals the whole game.</p>
-        <p>I think of this as the weekend I stopped being a visitor.</p>
-        <p>Thank you for taking my side.</p>
+        <p>The day before, you&rsquo;d been at a burial and then a family lunch, and you texted me from the cemetery that you had lots to say and most of it wasn&rsquo;t nice, and that you were pre warning me so I didn&rsquo;t think it was with me or at me. Then you came to me and said all of it, and I just listened. That night you wrote "jeszcze raz dziękuję że mnie wysłuchałeś, to dużo dla mnie znaczy." Twice. You thanked me twice for listening. I didn&rsquo;t do anything. I just didn&rsquo;t go anywhere.</p>
+        <p>The night this was taken was my last before I flew. You&rsquo;d been tweaking all day about looking right, did your makeup mid class with Luna helping, got on the wrong tram, ran for the right one in heels because you&rsquo;re a pro heel wearer, and told me fate was smiling on you. You said it was your prom, because you never got one. The next morning you wrote "another happy day being alive waking up with my lover, doesn&rsquo;t get better than that," and by the evening, "I hate that I miss you so much already." Then you told me you were unbeatable at Rummikub, undefeated for years, that your whole family hates playing with you, and that you&rsquo;d teach me for serious stakes. We never settled the bet.</p>
+        <p>That was the week you let me see the bad days too. I think that&rsquo;s when it became real for me.</p>
+        <p>Thank you for trusting me with the not nice stuff.</p>
       </div>
     </section>
 
@@ -153,10 +161,10 @@
       <div class="when">May and June &middot; the calls</div>
       <div class="show" data-photos="ft4,ft2,ft3,ft1"></div>
       <div class="text">
-        <p>Four faces from four calls. 27 May, 31 May, 13 June, 13 June.</p>
+        <p>Four faces from three calls. 27 May, 31 May and 13 June.</p>
         <p>The night before the first one you&rsquo;d had a scare and couldn&rsquo;t sleep, so I stayed on the phone until four. In the morning you wrote "had my protector with me all night" and thanked me for staying up and for the silly reels before bed. Then you said you&rsquo;d do better about telling me when I was doing good. You did. You told me constantly after that. I don&rsquo;t think I told you enough how much that changed things for me.</p>
         <p>That was also the morning you sent me an extra scrungly zdjęcie lunsonka. A week later I was at the ball.</p>
-        <p>Then your holiday in June. You by the pool telling me the sun isn&rsquo;t a good charger. You telling me the best superpower is teleportation. "I can&rsquo;t help but keep talking about u." You rating the truffle fries as mid and saying the Prime Cut ones were better. You saying skinny dipping had been on your bucket list forever and you wanted to do it with me. I still owe you that.</p>
+        <p>Then the "dreaded holiday in Marbs with Vicky and Beavo." You by the pool telling me the sun isn&rsquo;t a good charger. You telling me the best superpower is teleportation. "I can&rsquo;t help but keep talking about u." You rating the truffle fries as mid and saying the Prime Cut ones were better. You saying skinny dipping had been on your bucket list forever and you wanted to do it with me. At least we tried in Italy.</p>
         <p>I&rsquo;d stay up until two for a call then write you the little text after we hung up because I wasn&rsquo;t ready for it to be over. You always wrote back.</p>
         <p>Thank you for picking up.</p>
       </div>
@@ -168,7 +176,7 @@
       <div class="text">
         <p>White tie. Champagne. The captain&rsquo;s hat. Outside the restaurant.</p>
         <p>Before you came you went to the dentist and announced you finally had all 28 of your teeth again. You said you were on a quest to find and kill your doppelgängers so I didn&rsquo;t get any ideas, and that I was the only man for you, forevaaaa. You tried the opera dress on with your mum and picked the shoes and the bag with her, and then texted me "just picked all my fits for London with mum." You planned it like a campaign.</p>
-        <p>Then you came, and you walked around my city like it was yours, and you let me show you off to people I&rsquo;ve known my whole life. The captain&rsquo;s hat was your idea. The champagne was mine. You looked like you&rsquo;d always been there.</p>
+        <p>Then you came, and you walked around my city like it was yours, and you let me show you off to people I&rsquo;ve known my whole life. You looked like you&rsquo;d always been there.</p>
         <p>Thank you for coming to England.</p>
       </div>
     </section>
@@ -179,7 +187,7 @@
       <div class="text">
         <p>Tea on the 5th. Crisps on the 6th.</p>
         <p>Two days before these I&rsquo;d asked you for three ice creams and you went to Biedronka and there was no Häagen-Dazs, so you brought dinner from home instead, "cause I figured you&rsquo;d be tired, I&rsquo;ve got bread and everything, I can bring some extra mochi." You called me a little lad who loves berries and cream. You sent me "listen to my song!!!" and "remember to check for champagne" and "go knock their socks off!!!" in the space of one morning.</p>
-        <p>You told me to think about you every time I have a cup of tea. I have tea most days. You know what that means.</p>
+        <p>You told me to think about you every time I have a cup of tea.</p>
         <p>You called it school with Mr Hip. You were the only student I ever had.</p>
         <p>Thank you for the dinner from home.</p>
       </div>
@@ -189,8 +197,8 @@
       <div class="when">Warsaw &middot; July and August</div>
       <div class="show" data-photos="waw6,waw4,waw5,waw,waw2"></div>
       <div class="text">
-        <p>Veturilo bikes. Two metro lines. The pizza with prosciutto you let me get without complaining. Painting all day. The easel that got stolen while I stood in a pharmacy queue. Your drawings of us. The museum café on 31 July. The view from Poselska. The city below us on 8 August. The tree on the 24th.</p>
-        <p>In between, all of it. You telling me off for lifting without a spotter, "I just want u alive forever, can&rsquo;t believe you&rsquo;re beefin me cause I want you to be safe." The contact lenses I bought you. You cutting Luna&rsquo;s nails and reporting it went almost concerningly fast and she wasn&rsquo;t even that mad. You going to the butcher for me with my list, in the rain, with no bikes anywhere, "this is turning into a serious quest." You attempting a wig after lunch, pink and blue. The white flip flop hunt before Italy, Arkadia, I LOVE THE STRIPES, "I just walked with the spirit guiding me." You asking me for a Saska Kępa pass for all the concerts.</p>
+        <p>Veturilo bikes. Two metro lines. The pizza with prosciutto you let me get without complaining. Painting all day. The easel that got stolen while you stood in a pharmacy queue. Your drawings of us. The museum café on 31 July. The view from Poselska. The city below us on 8 August. The tree selfie on the 24th, in the garden in Łazienki.</p>
+        <p>You telling me off for lifting without a spotter, "I just want u alive forever, can&rsquo;t believe you&rsquo;re beefin me cause I want you to be safe." The contact lenses I bought you. You cutting Luna&rsquo;s nails and reporting it went almost concerningly fast and she wasn&rsquo;t even that mad. You going to the butcher for me with my list, in the rain, with no bikes anywhere, "this is turning into a serious quest." You attempting a wig after lunch, pink and blue. The white flip flop hunt before Italy, Arkadia, I LOVE THE STRIPES, "I just walked with the spirit guiding me." You asking me for a Saska Kępa pass for all the concerts.</p>
         <p>And on my CFA day, from a Turkish breakfast you hated, "trzymam za ciebie kciuki, uda się, daj znać jak wyjdziesz, będę czekać na relację. Fuck the ethics code." I passed, by the way. You were the first person I wanted to tell.</p>
         <p>Nothing in these photos is special. They&rsquo;re the best days I&rsquo;ve had.</p>
         <p>Thank you for the summer.</p>
@@ -214,10 +222,11 @@
       <div class="show" data-photos="eng4,selfire4,selfie3,selfie5"></div>
       <div class="text">
         <p>The 1st. The last one from England.</p>
-        <p>From the plane you wrote "still have your big fat kiss with me," that you had a whole row to yourself, that you&rsquo;d love to be pocket sized, that you wished it was £12 to go to America. You said you cried a little on the plane. I didn&rsquo;t know what to do with that. I still don&rsquo;t.</p>
+        <p>From the plane you wrote "still have your big fat kiss with me," that you had a whole row to yourself, that you&rsquo;d love to be pocket sized, that you wished it was £12 to go to America. You said you cried a little on the plane.</p>
+        <p>I need to put something right. In the letter I said that by the time you got on that plane I&rsquo;d already ended it in my head. I went back through that week to build this page and it isn&rsquo;t true. I hadn&rsquo;t decided anything. I read your messages from the plane on the train home from the airport and I was already waiting for the next one. I went quiet, and I know that from where you were sitting quiet looks the same as gone. That&rsquo;s on me. But I hadn&rsquo;t left. I was on a train wishing I was still in the car with you. The letter was wrong about that, and I&rsquo;m sorry it says otherwise.</p>
         <p>Then I was in America and you were everywhere anyway. The faces on the 3rd and the 6th and the 16th. You telling me how to beat the jet lag. The breakfast setup. You swimming in a cave pool that was "taki turquoise clear." You running out of honey. You buying milk for my tea even though I wasn&rsquo;t there. "It was so nice to talk to you when I woke up."</p>
-        <p>The 11th. "I AM IN THE WRONG RESTAURANT." Then the right one, a Malbec and a New York steak they made into a tagliata, "we might have to come here together," then Feliks Bar, then bed with crazy drunk hiccups and missing me loads. Then on the 21st you told me you missed me crazy.</p>
-        <p>I&rsquo;d read these on a bench between classes and feel like I was still in Warsaw.</p>
+        <p>The 11th. "I AM IN THE WRONG RESTAURANT." Then the right one, a Malbec and a New York steak they made into a tagliata, "we might have to come here together," then Feliks Bar, then bed with crazy drunk hiccups and missing me loads. On the 21st you told me you missed me crazy.</p>
+        <p>I&rsquo;d read these on a bench between classes and feel like I was still in Warsaw. You don&rsquo;t do that with something you&rsquo;ve ended.</p>
         <p>Thank you for the mornings.</p>
       </div>
     </section>
@@ -259,8 +268,9 @@
     var track = document.createElement('div'); track.className = 'track';
     names.forEach(function (n, i) {
       var fig = document.createElement('figure'); fig.className = 'slide';
-      var img = document.createElement('img'); img.src = 'img/' + n + '.jpg'; img.alt = ''; img.loading = i === 0 ? 'eager' : 'lazy'; img.decoding = 'async';
-      fig.appendChild(img); track.appendChild(fig);
+      var bg = document.createElement('img'); bg.src = 'img/' + n + '.jpg'; bg.alt = ''; bg.className = 'blur'; bg.loading = i === 0 ? 'eager' : 'lazy'; bg.decoding = 'async'; bg.setAttribute('aria-hidden', 'true');
+      var img = document.createElement('img'); img.src = 'img/' + n + '.jpg'; img.alt = ''; img.className = 'pic'; img.loading = i === 0 ? 'eager' : 'lazy'; img.decoding = 'async';
+      fig.appendChild(bg); fig.appendChild(img); track.appendChild(fig);
     });
     show.appendChild(track);
     if (names.length < 2) { show.classList.add('single'); return; }
@@ -300,6 +310,16 @@
       go(x < track.clientWidth / 3 ? cur - 1 : cur + 1);
     });
     paint();
+  });
+
+  // ---- long moments show two paragraphs, then "read on"
+  [].slice.call(document.querySelectorAll('.moment .text')).forEach(function (t) {
+    var ps = t.querySelectorAll('p');
+    if (ps.length <= 2) return;
+    t.classList.add('folded');
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'readon'; b.textContent = 'read on \u2193';
+    b.addEventListener('click', function () { t.classList.remove('folded'); });
+    t.appendChild(b);
   });
 
   // ---- reveal on scroll and change the background per moment
