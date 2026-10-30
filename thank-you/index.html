@@ -37,6 +37,7 @@
   .text { grid-area: text; padding-top: 2px; }
   .text p { margin: 0; font-size: .98rem; line-height: 1.5; }
   .text p + p { margin-top: .6em; }
+  .text p.correction { color: #b01c27; }
   .text.folded p:nth-of-type(n+3) { display: none; }
   .readon { appearance: none; border: 0; background: none; padding: 0; margin-top: .7em; cursor: pointer; font: inherit; font-style: italic; font-size: .92em; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
   .text:not(.folded) .readon { margin-top: 1em; }
@@ -179,7 +180,7 @@
         <p>Me in white tie and you behind me in sunglasses. You with the champagne. Me in a hat I had no business wearing. Us outside the restaurant. You walked around my city like it was yours and let me show you off to people I’ve known my whole life.</p>
         <p>The Thursday you landed we went straight to the steakhouse I’d booked weeks before, and that’s the champagne photo, you an hour off a Ryanair looking like that. Then the ball. You were my ball date and I’d been saying so since May. I’d spent a year on the phone to suppliers over every bar in that place, and on the night the only thing I cared about was you walking in on my arm with your babcia’s amethysts on. You’d told me to keep the moustache for the ball so I kept it. We ended up on Lanson’s TikTok. The princess of Cambridge, like I said you’d be.</p>
         <p>The next day a driver picked us up from Cambridge at two and took us to Glyndebourne. L’Orfeo. Black tie, you in the dress you’d picked with your mum, a picnic on the lawn that my mum had sorted, meat not veg because you’d told me to fuck outta here with that vegetarian bullshit. You’d written her the thank you before you’d even landed. My opera princess. I wasn’t joking when I called you that.</p>
-        <p>Then London. Notting Hill, my house, my bed. Wimbledon on the Monday with my mum, me late and stuck in a queue texting you what’s the score, you telling me to smile at the ladies at the door and use my pretty privilege. That was also the day you hard launched me. You’d told me in May you weren’t going to post me, and then you did, from London, and lost a thousand followers for it, and told me like it was funny. The night you flew home my mum pulled me aside at my godmother’s party and told me you’d won her over, and I texted you from the party in capitals, swear on everything. You said your parents drilling you your whole childhood had paid off.</p>
+        <p>Then London. Notting Hill, my house, my bed. Wimbledon on the Monday with my mum, me late and stuck in a queue texting you what’s the score, you telling me to smile at the ladies at the door and use my pretty privilege. That was also the day you hard launched me. You’d told me in May you weren’t going to post me, and then you did, from London, and lost a thousand followers for it, and told me like it was funny. The night you flew home my godmother pulled me aside at her party and told me you’d won my mum over, and I texted you from the party in capitals, swear on everything. You said your parents drilling you your whole childhood had paid off.</p>
         <p>You looked like you’d always been there.</p>
         <p>Thank you for coming to England.</p>
       </div>
@@ -221,17 +222,17 @@
       </div>
     </section>
 
-    <section class="moment" data-bg="#efe6ea">
+    <section class="moment" data-open data-bg="#efe6ea">
       <div class="when">September</div>
       <div class="show" data-photos="eng4,selfire4,selfie3,selfie5"></div>
       <div class="text">
         <p>The 1st. The last one from England.</p>
         <p>From the plane you wrote "still have your big fat kiss with me," that you had a whole row to yourself, that you&rsquo;d love to be pocket sized, that you wished it was £12 to go to America. You said you cried a little on the plane.</p>
-        <p>I need to put something right. In the letter I said that by the time you got on that plane I’d already ended it in my head, and that everything after was me pretending. I regret writing that. I wrote the letter on the 1st of October and almost from the moment I put the pen down that part has been bothering me, and the longer I’ve sat with it the more sure I am that it’s wrong. I went back through that day to build this page and it isn’t what happened.</p>
-        <p>When you said you’d love to be pocket sized I wrote back “actually just stay and come live in my pocket.” When you told me you cried I wrote “Im glad about the snap. Not so about the cry. But today we can be sad.” That night I texted you hello and I love you and goodnight from my bedroom at home. The next afternoon I wrote “idk im tweaking cuz i mi you” and “we need ts countdown.” Those are my texts, from the day after, from a man who had supposedly already decided. Nobody pretends like that. You don’t ask for a countdown to something you’ve ended.</p>
-        <p>I think I know why I got it wrong. I wrote the letter three weeks after it ended, from inside the ending, and I read the ending backwards into everything before it. If it ended then I must have been gone already, that was the logic, and it made me feel less bad about going quiet. But that’s not the same as it being true. What I actually was in September was tired and far away and bad at saying so. I didn’t know how to do the distance and instead of telling you that I went quiet, and I know that from where you were sitting quiet looks the same as gone. That’s on me and I’m not going to argue with it. But quiet and gone are not the same thing, and I owed you the difference.</p>
-        <p>I hadn’t decided anything. I was on the train from Stansted reading your messages and already waiting for the next one, and I was counting down to you. I wasn’t pretending. I was there. I just wasn’t good at it.</p>
-        <p>The letter was wrong about that. I’m sorry it says otherwise, and I’m sorry you had to read it. If you only believe one thing on this page, believe this one.</p>
+        <p class="correction">I need to put something right. In the letter I said that by the time you got on that plane I’d already ended it in my head, and that everything after was me pretending. I regret writing that. I wrote the letter on the 1st of October and almost from the moment I put the pen down that part has been bothering me, and the longer I’ve sat with it the more sure I am that it’s wrong. I went back through that day to build this page and it isn’t what happened.</p>
+        <p class="correction">When you said you’d love to be pocket sized I wrote back “actually just stay and come live in my pocket.” When you told me you cried I wrote “Im glad about the snap. Not so about the cry. But today we can be sad.” That night I texted you hello and I love you and goodnight from my bedroom at home. The next afternoon I wrote “idk im tweaking cuz i mi you” and “we need ts countdown.” Those are my texts, from the day after, from a man who had supposedly already decided. Nobody pretends like that. You don’t ask for a countdown to something you’ve ended.</p>
+        <p class="correction">I think I know why I got it wrong. I wrote the letter three weeks after it ended, from inside the ending, and I read the ending backwards into everything before it. If it ended then I must have been gone already, that was the logic, and it made me feel less bad about going quiet. But that’s not the same as it being true. What I actually was in September was tired and far away and bad at saying so. I didn’t know how to do the distance and instead of telling you that I went quiet, and I know that from where you were sitting quiet looks the same as gone. That’s on me and I’m not going to argue with it. But quiet and gone are not the same thing, and I owed you the difference.</p>
+        <p class="correction">I hadn’t decided anything. I was on the train from Stansted reading your messages and already waiting for the next one, and I was counting down to you. I wasn’t pretending. I was there. I just wasn’t good at it.</p>
+        <p class="correction">The letter was wrong about that. I’m sorry it says otherwise, and I’m sorry you had to read it. If you only believe one thing on this page, believe this one.</p>
         <p>Then I was in America and you were everywhere anyway. The faces on the 3rd and the 6th and the 16th. You telling me how to beat the jet lag. The breakfast setup. You swimming in a cave pool that was "taki turquoise clear." You running out of honey. You buying milk for my tea even though I wasn&rsquo;t there. "It was so nice to talk to you when I woke up."</p>
         <p>The 11th. "I AM IN THE WRONG RESTAURANT." Then the right one, a Malbec and a New York steak they made into a tagliata, "we might have to come here together," then Feliks Bar, then bed with crazy drunk hiccups and missing me loads. On the 21st you told me you missed me crazy.</p>
         <p>I&rsquo;d read these on a bench between classes and feel like I was still in Warsaw. You don&rsquo;t do that with something you&rsquo;ve ended.</p>
@@ -246,7 +247,7 @@
         <p>A Siberian. Hair not fur. Flower paper. Literally a shrimp. Polędwica łososiowa, the good stuff. Not a fan of mommy travelling.</p>
         <p>The eye that got stuck shut in April. The nails in July that went almost concerningly fast. "Great news, she remains our only child." The Luna purrs you&rsquo;d send me when I was down. The kiciusia on Snap.</p>
         <p>She approved of me eventually. I&rsquo;m told it was close.</p>
-        <p>The filters are coming, Luna. I hope you&rsquo;re being kind to the new one.</p>
+        <p>The filters are coming, Luna. I hope you&rsquo;ll be kind to your new sibling.</p>
         <p>Thank you, council.</p>
       </div>
     </section>
@@ -324,8 +325,9 @@
   [].slice.call(document.querySelectorAll('.moment .text')).forEach(function (t) {
     var ps = t.querySelectorAll('p');
     if (ps.length <= 2) return;
-    t.classList.add('folded');
-    var b = document.createElement('button'); b.type = 'button'; b.className = 'readon'; b.textContent = 'read on \u2193';
+    var open = t.closest('.moment').hasAttribute('data-open');   // September starts unfolded
+    if (!open) t.classList.add('folded');
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'readon'; b.textContent = open ? 'fold up \u2191' : 'read on \u2193';
     b.addEventListener('click', function () {
       var folding = !t.classList.contains('folded');
       t.classList.toggle('folded');
@@ -340,15 +342,17 @@
   function setBg(c) { document.body.style.backgroundColor = c; root.style.setProperty('--bg', c); }
   var blocks = [].slice.call(document.querySelectorAll('[data-bg]'));
   if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          if (e.intersectionRatio >= 0.45 || e.target.tagName === 'HEADER') setBg(e.target.getAttribute('data-bg'));
-        }
-      });
-    }, { threshold: [0.15, 0.45] });
-    blocks.forEach(function (b) { io.observe(b); });
+    var last = document.querySelector('.end');
+    var show = function (entries) { entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('in'); }); };
+    // a moment fades in as soon as its top comes on screen, however tall it is
+    var reveal = new IntersectionObserver(show, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
+    // the closing card waits until some of it is showing, so the stamp lands in view
+    var revealLast = new IntersectionObserver(show, { threshold: 0.15 });
+    // the background follows whichever block is at the middle of the screen
+    var tint = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) setBg(e.target.getAttribute('data-bg')); });
+    }, { threshold: 0, rootMargin: '-49% 0px -50% 0px' });
+    blocks.forEach(function (b) { (b === last ? revealLast : reveal).observe(b); tint.observe(b); });
   } else {
     blocks.forEach(function (b) { b.classList.add('in'); });
   }
