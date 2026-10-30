@@ -213,6 +213,10 @@
   var opened = false;
   btn.addEventListener('click', function () {
     if (opened) return; opened = true;
+    // plain open counter: no cookies, no location, only counts on the live site and not with ?nocount
+    if (location.hostname === 'hiphodges-sketch.github.io' && location.search.indexOf('nocount') === -1) {
+      try { fetch('https://abacus.jasoncameron.dev/hit/for-nel-79f189bf/opened', { mode: 'cors', keepalive: true }).catch(function () {}); } catch (e) {}
+    }
     btn.classList.add('leaving');
     setTimeout(function () {
       btn.style.display = 'none';
