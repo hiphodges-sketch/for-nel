@@ -77,12 +77,12 @@
   .sign { font-style: italic; color: var(--ink-soft); text-align: right; margin-top: .6em !important; }
   .stamp { position: absolute; right: 10px; bottom: -14px; width: 200px; padding: 8px 6px 7px; background: #b01c27; border: 4px solid #b01c27; border-radius: 10px;
     color: #fff; text-align: center; text-transform: uppercase; outline: 2px solid #fff; outline-offset: -8px; box-shadow: 0 6px 16px rgba(47,64,89,.25);
-    font-family: "Helvetica Neue", Arial, sans-serif; font-style: normal; line-height: 1.05; white-space: nowrap; transform: rotate(-11deg) scale(1.9); opacity: 0; }
+    font-family: "Helvetica Neue", Arial, sans-serif; font-style: normal; line-height: 1.05; white-space: nowrap; transform: rotate(-11deg); opacity: 0; }
   .stamp span { display: block; }
   .stamp .s1 { font-size: 1.68rem; font-weight: 900; letter-spacing: .07em; }
   .stamp .s2 { font-size: .8rem; font-weight: 900; letter-spacing: .08em; margin-top: 3px; }
   .stamp .s3 { font-size: .57rem; font-weight: 800; letter-spacing: .05em; margin-top: 4px; }
-  .end.in .stamp { animation: stampin .5s cubic-bezier(.2,1.2,.4,1) .9s forwards; }
+  .stamp.in { animation: stampin .5s cubic-bezier(.2,1.2,.4,1) .9s forwards; }
   @keyframes stampin { 0% { opacity: 0; transform: rotate(-11deg) scale(1.9); } 65% { opacity: 1; transform: rotate(-11deg) scale(.96); } 100% { opacity: 1; transform: rotate(-11deg) scale(1); } }
   footer { text-align: center; color: var(--ink-soft); font-size: .8rem; padding: 70px 0 40px; }
 
@@ -295,6 +295,7 @@
   <section class="end" data-bg="#f7f1e3">
     <div class="letter">
       <p>Three weeks ago you opened the door and let me in. The red shoehorn you got me was still by your door. We had sushi and wine and you let me stay. You didn&rsquo;t have to do any of that.</p>
+      <p>One more thing about the letter. I wrote it a week after it ended to say goodbye and I was in a really bad place. When you&rsquo;re that sad everything looks like it was always ending. So I made my doubts sound like the whole story. They weren&rsquo;t the whole story. Some of it came out harsher than what really happened. Like the plane. The hug at Stansted was real. And some of it I wrote for me and not for you. Like the bit about the next one. Writing those made me feel better and you were the one left carrying them. That wasn&rsquo;t fair. I was closed off and I didn&rsquo;t show you enough but I was in it. I always could tell when you were upset. Knowing someone that well is rare and I didn&rsquo;t see it when I wrote the letter. You were never in it on your own. Everything on this page was both of us. You weren&rsquo;t stupid for being sure about us. It was real for me too and I&rsquo;m so sorry the letter made you feel like it wasn&rsquo;t.</p>
       <p>That was my excessive detail. Thank you Nel. For all of it.</p>
       <p>Whatever comes next I&rsquo;m glad it was you. I always will be.</p>
       <p class="sign">Yours,<br>zeeb, hipcia</p>
@@ -380,19 +381,19 @@
   function setBg(c) { document.body.style.backgroundColor = c; root.style.setProperty('--bg', c); }
   var blocks = [].slice.call(document.querySelectorAll('[data-bg]'));
   if ('IntersectionObserver' in window) {
-    var last = document.querySelector('.end');
     var show = function (entries) { entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('in'); }); };
     // a moment fades in as soon as its top comes on screen, however tall it is
     var reveal = new IntersectionObserver(show, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
-    // the closing card waits until some of it is showing, so the stamp lands in view
-    var revealLast = new IntersectionObserver(show, { threshold: 0.15 });
+    // the closing card can be taller than a phone screen, so the stamp waits for its own spot to come on screen
+    reveal.observe(document.querySelector('.stamp'));
     // the background follows whichever block is at the middle of the screen
     var tint = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { if (e.isIntersecting) setBg(e.target.getAttribute('data-bg')); });
     }, { threshold: 0, rootMargin: '-49% 0px -50% 0px' });
-    blocks.forEach(function (b) { (b === last ? revealLast : reveal).observe(b); tint.observe(b); });
+    blocks.forEach(function (b) { reveal.observe(b); tint.observe(b); });
   } else {
     blocks.forEach(function (b) { b.classList.add('in'); });
+    document.querySelector('.stamp').classList.add('in');
   }
 })();
 </script>
