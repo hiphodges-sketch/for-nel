@@ -6,9 +6,12 @@
 <title>A little surprise</title>
 <meta name="theme-color" content="#dcecfb">
 <style>
-  :root { --bg1:#eef6ff; --bg2:#bcd9f3; --accent:#f28b6f; --accent2:#ffb088; --ink:#2f4059; --ink-soft:#5d7390; --card:#fbfdff; --paper:#e6eff8; }
+  :root { --bg1:#eef6ff; --bg2:#bcd9f3; --accent:#f28b6f; --accent2:#ffb088; --ink:#2f4059; --ink-soft:#51647f; --card:#fbfdff; --paper:#e6eff8; }
   * { box-sizing: border-box; }
   html, body { height: 100%; margin: 0; overflow: hidden; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  body.spy :focus-visible { outline-color: #c9d3e6; }
+  .flip:focus-visible { outline-offset: 6px; border-radius: 8px; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: var(--ink);
@@ -22,19 +25,19 @@
   main { flex: 1; min-height: 0; width: 100%; max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; }
   #open {
     appearance: none; border: 0; cursor: pointer; font: inherit;
-    font-size: clamp(1.2rem, 2.4vw + 0.6rem, 1.8rem); font-weight: 600; color: #fff;
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    font-size: clamp(1.2rem, 2.4vw + 0.6rem, 1.8rem); font-weight: 600; color: var(--ink);
+    background: linear-gradient(135deg, var(--accent2), #f5957a);
     padding: 1.1em 2.2em; border-radius: 999px; max-width: 92vw; text-align: center;
-    box-shadow: 0 12px 30px rgba(242,139,111,.4), inset 0 1px 0 rgba(255,255,255,.35);
+    box-shadow: 0 12px 30px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.45);
     animation: breathe 2.6s ease-in-out infinite;
     transition: transform .25s ease, opacity .45s ease; -webkit-tap-highlight-color: transparent;
   }
   .big {
     display: inline-block; text-decoration: none; cursor: pointer; font: inherit;
     font-size: clamp(1.5rem, 3.2vw + .7rem, 2.3rem); font-weight: 700; color: #fff; text-align: center; max-width: 92vw;
-    background: linear-gradient(135deg, var(--accent), #d9574a);
+    background: linear-gradient(135deg, #c94b3e, #b23c31);
     padding: 1.05em 2.1em; border-radius: 999px; margin-bottom: 26px;
-    box-shadow: 0 16px 36px rgba(217,87,74,.4), inset 0 1px 0 rgba(255,255,255,.3);
+    box-shadow: 0 16px 36px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.3);
     transition: transform .25s ease, opacity .45s ease; -webkit-tap-highlight-color: transparent;
   }
   .big:active { transform: scale(.97); }
@@ -49,7 +52,7 @@
   .note.show { opacity: 1; transform: none; }
   .note .sig { display: block; margin-top: .35em; font-style: italic; color: var(--ink-soft); }
   .hint { font-size: .82rem; color: var(--ink-soft); opacity: 0; transition: opacity 1s ease .4s; margin: 0; }
-  .hint.show { opacity: .85; }
+  .hint.show { opacity: 1; }
   #confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
   .bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
   main, #confetti { position: relative; z-index: 1; }
@@ -115,7 +118,7 @@
   .spybg::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.028) 0 1px, transparent 1px 3px); }
   body.spy .bg { opacity: .14; }
   body.spy .note2 { background: #efe3c3; color: #3a2e1f; box-shadow: 0 22px 44px rgba(0,0,0,.55); }
-  body.spy .note2 .ps { color: #7b6549; }
+  body.spy .note2 .ps { color: #6b573d; }
   body.spy .note2::before { content: 'CLASSIFIED'; position: absolute; top: -13px; right: 16px; font: 800 .68rem/1 "Helvetica Neue", Arial, sans-serif; letter-spacing: .22em; color: #b01c27; border: 2px solid #b01c27; padding: 5px 8px 4px; background: #efe3c3; transform: rotate(5deg); }
   body.spy .vframe { background: #1c2231; box-shadow: 0 22px 44px rgba(0,0,0,.6); }
   body.spy .vframe .cap, body.spy .back { color: #c9d3e6; }
@@ -192,9 +195,9 @@
       <div class="stamp" id="stamp" role="img" aria-label="Approved by the council, 16 October 2026"><span class="s1">Approved</span><span class="s2">by the council</span><span class="s3">16 Oct 2026 &middot; ref. ZEEBZEEB</span></div>
     </div>
     <div>
-      <div class="flip" id="flip"><div class="inner" id="inner">
-        <div class="face front"><img id="imgA" alt="photo"><span class="cap" id="capA"></span></div>
-        <div class="face back"><img id="imgB" alt="photo"><span class="cap" id="capB"></span></div>
+      <div class="flip" id="flip" role="button" tabindex="0" aria-label="turn the photo over"><div class="inner" id="inner">
+        <div class="face front"><img id="imgA" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt=""><span class="cap" id="capA"></span></div>
+        <div class="face back"><img id="imgB" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt=""><span class="cap" id="capB"></span></div>
       </div></div>
       <p class="hint" id="hint" style="margin-top:10px">tap the photo to turn it over</p>
     </div>
@@ -285,14 +288,15 @@
   var cur = 0, angle = 0, busy = false, started = false, auto = false, timer = null;   // auto-advance only begins after the first tap
   A.decoding = 'async'; B.decoding = 'async';
   var capA = document.getElementById('capA'), capB = document.getElementById('capB');
-  A.src = PHOTOS[0]; capA.textContent = CAPTIONS[0]; B.src = PHOTOS[1 % PHOTOS.length]; capB.textContent = CAPTIONS[1 % PHOTOS.length];
+  function altFor(i) { return CAPTIONS[i] || 'Photo ' + (i + 1) + ' of ' + PHOTOS.length; }
+  A.src = PHOTOS[0]; capA.textContent = CAPTIONS[0]; A.alt = altFor(0); B.src = PHOTOS[1 % PHOTOS.length]; capB.textContent = CAPTIONS[1 % PHOTOS.length]; B.alt = altFor(1 % PHOTOS.length);
   function hiddenFace() { return (angle / 180) % 2 === 0 ? B : A; }   // the face turned away right now
   function schedule() { clearTimeout(timer); timer = setTimeout(turn, 3400); }
   function turn() {
     if (busy || !started) return;
     busy = true; auto = true; clearTimeout(timer);
     var next = (cur + 1) % PHOTOS.length, h = hiddenFace();
-    h.src = PHOTOS[next]; (h === A ? capA : capB).textContent = CAPTIONS[next];   // load onto the face nobody can see
+    h.src = PHOTOS[next]; h.alt = altFor(next); (h === A ? capA : capB).textContent = CAPTIONS[next];   // load onto the face nobody can see
     var go = function () {
       cur = next; angle += 180;
       inner.style.transform = 'rotateY(' + angle + 'deg)';
@@ -313,6 +317,7 @@
     if (h.decode) h.decode().then(go, go); else go();
   }
   document.getElementById('flip').addEventListener('click', function () { track('photo-turn'); turn(); });
+  document.getElementById('flip').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); track('photo-turn'); turn(); } });
   var thanksLink = document.getElementById('thanks'); if (thanksLink) thanksLink.addEventListener('click', function () { track('thank-you-link'); });
   (function scenes() {
     var more = document.getElementById('more'), scene2 = document.getElementById('scene2'), back = document.getElementById('back');
